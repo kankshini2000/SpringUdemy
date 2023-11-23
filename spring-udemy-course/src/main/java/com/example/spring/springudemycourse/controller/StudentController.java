@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,5 +81,49 @@ public class StudentController {
 		System.out.println(std4.getFname());
 		System.out.println(std4.getLname());
 		return std4;
+	}
+	
+	@PutMapping("/update/{id}")
+	/*why did we pass URI template varible into PathVarible annotation bcoz the {id} of Putmapping 
+	should be same as that of pathvarible but in our case it is int stdId*/
+	public Student updateStd(@RequestBody Student std5,@PathVariable("id") int stdid) {
+		System.out.println(std5.getFname());
+		System.out.println(std5.getLname());
+		return std5;
+	}
+	
+	@DeleteMapping("del/{id}")
+	public String delStd(@PathVariable("id") int stdid) {
+		System.out.println(stdid);
+		return "The student with stdid has been deleted";
+	}
+	
+	@GetMapping("/res/getstd")
+	public ResponseEntity<Student> getResponseEttStd(@RequestBody Student std7){
+		System.out.println(std7.getId());
+		System.out.println(std7.getFname());
+		System.out.println(std7.getLname());
+		//return ResponseEntity.ok(std7);
+		return new ResponseEntity<>(std7, HttpStatus.OK);
+	}
+	
+	@GetMapping("/res/getRes")
+	public ResponseEntity<Student> customHeaderStd(@RequestBody Student std8){
+		System.out.println(std8.getId());
+		System.out.println(std8.getFname());
+		System.out.println(std8.getLname());
+		return ResponseEntity.ok()
+				.header("custom-header", "shine")
+				.body(std8);	
+	}
+	
+	@GetMapping("/res/{id}/{f-name}/{l-name}")
+	public ResponseEntity<Student> stdResponseEntity(@PathVariable("id") int Stdid
+			,@PathVariable("f-name") String stdfname
+			,@PathVariable("l-name") String stdlname
+			) 
+	{
+		Student std9 = new Student(Stdid,stdfname,stdlname);
+		return ResponseEntity.ok(std9);
 	}
 }
