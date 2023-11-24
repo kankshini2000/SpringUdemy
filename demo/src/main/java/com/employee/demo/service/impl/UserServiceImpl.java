@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,16 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		// TODO Auto-generated method stub
 		/*convert UserDto object into UserJPA entity object and pass that User entity object
 		to this save() method*/
-		User user = UserMapper.mapToUser(userDto);
+		//User user = UserMapper.mapToUser(userDto);
+		User user = modelMapper.map(userDto, User.class);
 		/* Save the User entity object to the repository basically
 		 maptOUser i.e for database we use JPA entities as the user is geeting
 		 stored in the database hence "mapToUser is used*/
@@ -38,7 +43,8 @@ public class UserServiceImpl implements UserService{
 		  will send request to the client to createUser so client side is being used
 		  hence when did postman to send request to createUser() it get converted into
 		  UserDTo*/
-		 UserDto savedUserDto= UserMapper.mapToUserDto(savedUser);
+		 //UserDto savedUserDto= UserMapper.mapToUserDto(savedUser);
+		 UserDto savedUserDto = modelMapper.map(savedUser, UserDto.class);
 		 return savedUserDto;
 		 
 		 //convert userJPA entity to userDTO
@@ -49,15 +55,20 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		Optional<User> optionalUser = userRepository.findById(userId);
 		User user = optionalUser.get();
-		return UserMapper.mapToUserDto(user);
+		//return UserMapper.mapToUserDto(user);
+		return modelMapper.map(user, UserDto.class);
 	}
 
 	@Override
 	public  List<UserDto> getAllUsers() {
 		// TODO Auto-generated method stub
 		List<User> users = userRepository.findAll();
-		return users.stream().map(UserMapper::mapToUserDto)
+//		//return users.stream().map(UserMapper::mapToUserDto)
+//				.collect(Collectors.toList());
+		return users.stream().map((user)->modelMapper.map(user, UserDto.class))
+				//her map takes functional interface hence lambda expression is used.
 				.collect(Collectors.toList());
+		
 	}
 
 	@Override
@@ -67,7 +78,8 @@ public class UserServiceImpl implements UserService{
 		existingUser.setLastName(user.getLastName());
 	    existingUser.setEmail(user.getEmail());
 	    User updatedUser = userRepository.save(existingUser);
-		return UserMapper.mapToUserDto(updatedUser);
+		//return UserMapper.mapToUserDto(updatedUser);
+	    return modelMapper.map(updatedUser, UserDto.class);
 	}
 
 	@Override
