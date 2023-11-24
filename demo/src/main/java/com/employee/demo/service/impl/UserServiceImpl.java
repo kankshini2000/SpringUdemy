@@ -27,9 +27,17 @@ public class UserServiceImpl implements UserService{
 		/*convert UserDto object into UserJPA entity object and pass that User entity object
 		to this save() method*/
 		User user = UserMapper.mapToUser(userDto);
-		//not wrote return as we need to return UserDto obejct
+		/* Save the User entity object to the repository basically
+		 maptOUser i.e for database we use JPA entities as the user is geeting
+		 stored in the database hence "mapToUser is used*/
 		 User savedUser= userRepository.save(user);
 		 
+		 //Convert the saved User JPA entity to a UserDto and return it
+		 /*here mapUsertoDto is being used bcoz this DTO object is generally done between
+		  service n controller layer,hence as we have saved that savedUser (i.e from database) we 
+		  will send request to the client to createUser so client side is being used
+		  hence when did postman to send request to createUser() it get converted into
+		  UserDTo*/
 		 UserDto savedUserDto= UserMapper.mapToUserDto(savedUser);
 		 return savedUserDto;
 		 

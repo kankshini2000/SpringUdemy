@@ -22,9 +22,10 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("api/users")
+@AllArgsConstructor
 public class UserController {
 
-	@Autowired
+//	@Autowired
 	private UserService userService;
 	
 	@PostMapping 
