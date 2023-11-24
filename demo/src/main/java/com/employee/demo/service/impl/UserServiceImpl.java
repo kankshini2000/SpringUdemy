@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
 //				.collect(Collectors.toList());
 		return users.stream().map((user)-> AutoUserMapper.MAPPER.mapToUserDto(user))
 				.collect(Collectors.toList());
-		//
+		//plz work
 		//return users.stream().map((user)->modelMapper.map(user, UserDto.class))
 				//her map takes functional interface hence lambda expression is used.
 	}
