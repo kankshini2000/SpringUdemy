@@ -19,11 +19,12 @@ import lombok.Setter;
 @Entity
 @Table(name= "employees")
 public class Employee {
-	
+	//Added entity class
 	@Id
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long eid;
-	
+	//private 
 	@Column(nullable = false)
 	private String ename;
 	@Column(nullable = false)
