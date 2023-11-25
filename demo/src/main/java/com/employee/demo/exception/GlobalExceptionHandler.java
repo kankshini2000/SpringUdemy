@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 
 	 @ExceptionHandler(ResourceNotFoundException.class)
 	    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
@@ -62,5 +62,25 @@ public class GlobalExceptionHandler {
 	        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	 
+	 
+	 //exception to handle validations error reponse
+	 @Override
+	    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
+	                                                                  HttpHeaders headers, 
+	                                                                  HttpStatusCode status,
+	                                                                  WebRequest request) {
+	        
+		 //store mutliple error msgs in the object so as to send that object back hence used Map to store multiple msgs
+		 Map<String, String> errors = new HashMap<>();
+	        List<ObjectError> errorList = ex.getBindingResult().getAllErrors();
+//error passed an a paratmer to the limabda expresion
+	        errorList.forEach((error) ->{
+	            String fieldName = ((FieldError) error).getField();
+	            String message = error.getDefaultMessage();
+	            errors.put(fieldName, message);
+	        });
+
+	        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+	    }
 	 
 }

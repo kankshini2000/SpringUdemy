@@ -1,5 +1,6 @@
 package com.employee.demo.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 public class UserDto {
@@ -13,7 +14,8 @@ public class UserDto {
     private String lastName;
     
 	@NotEmpty(message = "User email should not be null or empty")
-    private String email;
+    @Email
+	private String email;
 
 	public Long getId() {
 		return id;
