@@ -23,9 +23,16 @@ import com.employee.demo.exception.ErrorDetails;
 import com.employee.demo.exception.ResourceNotFoundException;
 import com.employee.demo.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
+@Tag(
+		name="CRUD REST API's for User Resource",
+		description = "Create User,Update User, Get User, Get User by Id, Delete User"
+		)
 @RestController
 @RequestMapping("api/users")
 @AllArgsConstructor
@@ -34,24 +41,57 @@ public class UserController {
 //	@Autowired
 	private UserService userService;
 	
+	@Operation(
+			summary = "Create REST USER API",
+			description= "create Rest user api to save user in a database"
+			)
+	@ApiResponse(
+			responseCode = "201",
+			description = "HTTP status 201 created"
+			)
 	@PostMapping 
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user){
 		UserDto savedUser = userService.createUser(user);
 		return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
 	}
 	
+	
+	@Operation(
+			summary = "GET REST USERBYID API",
+			description= "get userbyId Rest user api to get all the saved user in a DB"
+			)
+	@ApiResponse(
+			responseCode = "200",
+			description = "HTTP status 200 OK"
+			)
 	@GetMapping("{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
         UserDto user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 	
+	@Operation(
+			summary = "GET REST USER API",
+			description= "get all the  Rest user api to get all the saved user in a DB"
+			)
+	@ApiResponse(
+			responseCode = "200",
+			description = "HTTP status 200 OK"
+			)
 	@GetMapping("all")
 	public ResponseEntity<List<UserDto>> getAllUser(){
 		List<UserDto> user = userService.getAllUsers();
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
+	@Operation(
+			summary = "UPDATE REST USER API",
+			description= "update all the rest user api to update the user"
+			)
+	@ApiResponse(
+			responseCode = "200",
+			description = "HTTP status 200 OK"
+			)
 	@PutMapping("update/{id}")
 	public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,@RequestBody @Valid UserDto user){
 		user.setId(userId);
@@ -59,6 +99,14 @@ public class UserController {
 		return new ResponseEntity<>(updatedUser,  HttpStatus.OK);
 	}
 	
+	@Operation(
+			summary = "DELETE REST USER API",
+			description= "delete Rest user api to get all the delete user in a DB"
+			)
+	@ApiResponse(
+			responseCode = "200",
+			description = "HTTP status 200 OK"
+			)
 	//DeleteMapping
 	@DeleteMapping("del/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId) {

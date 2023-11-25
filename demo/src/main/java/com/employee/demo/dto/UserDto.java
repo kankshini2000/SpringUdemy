@@ -1,24 +1,38 @@
 package com.employee.demo.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
+@Schema(
+		description = "UserDto Model Information"
+		)
 public class UserDto {
 	
 	private Long id;
     
+	@Schema(
+			description = "user first name"
+			)
 	@NotEmpty(message = "User first name should not be null or empty")
     private String firstName;
     
+	@Schema(
+			description = "user last name"
+			)
 	@NotEmpty(message = "User last name should not be null or empty")
     private String lastName;
     
+	@Schema(
+			description = "user email name"
+			)
 	@NotEmpty(message = "User email should not be null or empty")
     @Email
 	private String email;
 
 	public Long getId() {
 		return id;
+		
 	}
 
 	public void setId(Long id) {
