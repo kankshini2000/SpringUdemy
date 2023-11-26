@@ -21,16 +21,20 @@ import lombok.Setter;
 public class Employee {
 	//Added entity class
 	@Id
-	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long eid;
 	//private 
 	@Column(nullable = false)
 	private String ename;
+	
 	@Column(nullable = false)
 	private String elname;
 	@Column(nullable = false,unique= true)
 	private String email;
+	@Override
+	public String toString() {
+		return "Employee [eid=" + eid + ", ename=" + ename + ", elname=" + elname + ", email=" + email + "]";
+	}
 	
 	
 }
