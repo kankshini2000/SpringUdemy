@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.employee.dto.EmployeeDto;
+import com.example.employee.dto.DepartmentDto;
 import com.example.employee.mapper.EmployeeMapper;
 import com.example.employee.model.Employee;
 import com.example.employee.repository.EmployeeRepo;
@@ -38,7 +38,7 @@ public class EmployeeImpl implements EmployeeService{
 	 2)Employee mein convert hogya uske baad postman se hmane interact krna padega iske liye enity ko 
 	 jpa mein convert karenge jab voh convert ho jayega usko save krnege kisi object mein  yaha p 
 	 iska naam hai savedmepdto a\8nd hence as hamara return type bhi employeeDTO hai, so return bhi vahi hoga📌*/
-	public EmployeeDto createEmp(EmployeeDto employeedto) {
+	public DepartmentDto createEmp(DepartmentDto employeedto) {
 		/*abhi here we are receiving error kyuki in the repo JPA repostory mein
 		 <ENtity(employee),primary key>  Empolyee hai jabki createDto mein EmployeeDTO
 		 as a paratmer paas kiya jaa rha hai so yeh EmpployeeDto koi convert krna padega
@@ -49,12 +49,12 @@ public class EmployeeImpl implements EmployeeService{
 		Employee savedemp = employeeRepo.save(emp);
 		
 		//converting emp to dto
-		EmployeeDto savedEmpDto = EmployeeMapper.emptoDto(savedemp);	
+		DepartmentDto savedEmpDto = EmployeeMapper.emptoDto(savedemp);	
 		return savedEmpDto;
 	}
 
 	@Override
-	public List<EmployeeDto> getAllEmps() {
+	public List<DepartmentDto> getAllEmps() {
 		//yahan p we are finding all the emps 
 		List<Employee> emps = employeeRepo.findAll();
 		/*yahan p we need to convert it into DTO objects hence, as sare employees list
@@ -62,14 +62,14 @@ public class EmployeeImpl implements EmployeeService{
 		 * har ek Employee stream k liye we are mapping it to EmployeeDto jiska method hai 
 		 * EmpToDto aaur once they are mapped ham use new list mein collect kr re hai i.e
 		 * List<EmployeeDtos> mein*/
-		List<EmployeeDto> empsDto = emps.stream()
+		List<DepartmentDto> empsDto = emps.stream()
 				.map(EmployeeMapper::emptoDto)
 				.collect(Collectors.toList());
 		return empsDto;
 	}
 
 	@Override
-	public EmployeeDto getEmpId(Long eid) {
+	public DepartmentDto getEmpId(Long eid) {
 		//isme we are finding empbyits id aur store kr rhe hai empbyitsid mein
 		Optional<Employee> empbyitsids = employeeRepo.findById(eid);
 		/*iske baad ham joh id mila hai for specific employee detials usko ham new 
@@ -80,7 +80,7 @@ public class EmployeeImpl implements EmployeeService{
 	}
 
 	@Override
-	public EmployeeDto updateEmp(EmployeeDto employee, Long eid){
+	public DepartmentDto updateEmp(DepartmentDto employee, Long eid){
 	Employee existingemp = employeeRepo.findById(eid).get();
 	//Employee emp = new Employee();
 	existingemp.setEname(employee.getEname());

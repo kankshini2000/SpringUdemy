@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.employee.dto.EmployeeDto;
+import com.example.employee.dto.DepartmentDto;
 import com.example.employee.model.Employee;
 import com.example.employee.service.EmployeeService;
 
@@ -27,32 +27,32 @@ public class EmployeeControl {
 	private EmployeeService employeeService;
 	
 	@PostMapping("create")
-	public ResponseEntity<EmployeeDto> create(@RequestBody EmployeeDto empdto) {
+	public ResponseEntity<DepartmentDto> create(@RequestBody DepartmentDto empdto) {
 		/*all the creation of employee logic is wriiten in the serviceimpl class
 		 * hence when we call the employeeservice.createemp() then it executes the creation methods
 		 for the mployee object i.e emp and saves it to repo and return the created employee */
-		EmployeeDto createdEmp = employeeService.createEmp(empdto);
+		DepartmentDto createdEmp = employeeService.createEmp(empdto);
 		return new ResponseEntity<>(createdEmp, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("getAll")
-	public ResponseEntity<List<EmployeeDto>> getAllEmployee(EmployeeDto empdto){
-		List<EmployeeDto> empsdto= employeeService.getAllEmps();
-		return new ResponseEntity<List<EmployeeDto>>(empsdto,HttpStatus.OK);
+	public ResponseEntity<List<DepartmentDto>> getAllEmployee(DepartmentDto empdto){
+		List<DepartmentDto> empsdto= employeeService.getAllEmps();
+		return new ResponseEntity<List<DepartmentDto>>(empsdto,HttpStatus.OK);
 	}
 	
 	@GetMapping("{eid}")
-	public ResponseEntity<EmployeeDto> getAllEmpByIds(@PathVariable("eid") Long eid){
-		EmployeeDto empsdto= employeeService.getEmpId(eid);
+	public ResponseEntity<DepartmentDto> getAllEmpByIds(@PathVariable("eid") Long eid){
+		DepartmentDto empsdto= employeeService.getEmpId(eid);
 		return new ResponseEntity<>(empsdto,HttpStatus.OK);
 	}
 	
 	@PutMapping("update/{eid}")
-	public ResponseEntity<EmployeeDto> updatedEmps(@RequestBody EmployeeDto empdto,@PathVariable("eid") Long eid){
+	public ResponseEntity<DepartmentDto> updatedEmps(@RequestBody DepartmentDto empdto,@PathVariable("eid") Long eid){
 		//to make sure ki ham correct eid mein sab changes kr rhe hai
 		empdto.setEid(eid);
 		System.out.println(empdto.toString());
-		EmployeeDto existingemps= employeeService.updateEmp(empdto, eid);
+		DepartmentDto existingemps= employeeService.updateEmp(empdto, eid);
 		return new ResponseEntity<>(existingemps, HttpStatus.OK);
 	}
 	

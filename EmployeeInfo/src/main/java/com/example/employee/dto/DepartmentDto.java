@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EmployeeDto {
+public class DepartmentDto {
 	
 	//direclty entnity ko expose nhi krna hai 
 	//hme db mein rakhna hai sirf
