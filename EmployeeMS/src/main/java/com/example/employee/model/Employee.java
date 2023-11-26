@@ -28,5 +28,10 @@ public class Employee {
     private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
+    /*isme ham department k add kr rhe hai kyyki employee konse 
+    department se hai yeh hme pata kaise chalega isliye meployeeservice se department service ko
+    call krna padega*/
+    private String departmentCode;
+   // private String organizationCode;
    
 }
