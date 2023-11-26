@@ -38,7 +38,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
-//	@Autowired
+      @Autowired
+	/*spring Userservice ki implemntation clas ka object create krega
+	 * aur inject karega*/
 	private UserService userService;
 	
 	@Operation(
