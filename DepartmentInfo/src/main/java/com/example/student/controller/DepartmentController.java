@@ -15,7 +15,7 @@ import com.example.student.service.DepartmentService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("api/deptartments")
+@RequestMapping("api/departments")
 @AllArgsConstructor
 public class DepartmentController {
 

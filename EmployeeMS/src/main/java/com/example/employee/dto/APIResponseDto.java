@@ -14,5 +14,5 @@ public class APIResponseDto {
 	//her we need to send the object i.e department wala aur dto object wala
     private EmployeeDto employee;
     private DepartmentDto department;
-    //private OrganizationDto organization;
+    private OrganizationDto organization;
 }

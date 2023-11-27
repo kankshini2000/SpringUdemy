@@ -32,6 +32,6 @@ public class Employee {
     department se hai yeh hme pata kaise chalega isliye meployeeservice se department service ko
     call krna padega*/
     private String departmentCode;
-   // private String organizationCode;
+   private String organizationCode;
    
 }
