@@ -37,7 +37,7 @@ public class DepartmentImpl implements DepartmentService{
     public DepartmentDto getDepartmentByCode(String departmentCode) {
 
         Department department = departmentRepository.findByDepartmentCode(departmentCode);
-
+System.out.println(departmentCode);
         DepartmentDto departmentDto = DepartmentMapper.mapToDepartmentDto(department);
 
         return departmentDto;
