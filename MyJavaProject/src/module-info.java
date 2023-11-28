@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author knishika
- *
- */
-module MyJavaProject {
-}
